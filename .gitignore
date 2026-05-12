@@ -1,0 +1,30 @@
+# Data
+data/raw/*.csv
+data/processed/*.csv
+
+# Environment
+.env
+.venv
+venv/
+ENV/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.coverage
+htmlcov/
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Power BI backups (optional)
+*.pbix.zip
