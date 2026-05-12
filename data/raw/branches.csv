@@ -1,0 +1,21 @@
+branch_id,branch_name,city,state,zip_code,phone,branch_type,opened_date,is_active
+BR001,North Judithbury Central Branch,North Judithbury,IN,18790,001-218-519-6001x3389,Retail,2023-07-17,True
+BR002,Robinsonshire South Branch,Robinsonshire,KY,01352,001-626-254-2351x16155,Corporate,2023-10-10,True
+BR003,Herrerafurt Central Branch,Herrerafurt,CO,72858,695-993-1034x1316,Retail,2022-03-05,True
+BR004,Franciscostad West Branch,Franciscostad,IL,88342,719-228-3276x483,Retail,2015-04-04,True
+BR005,Port Leslieview Main Branch,Port Leslieview,CA,28154,001-553-676-7242,Retail,2024-01-25,True
+BR006,Hurstfurt North Branch,Hurstfurt,MN,29247,(387)810-1226,Community,2017-11-07,True
+BR007,Riceside West Branch,Riceside,VI,02005,+1-318-645-1462x70482,Corporate,2022-03-25,True
+BR008,East Nathaniel Central Branch,East Nathaniel,GA,71198,001-380-395-7015x43039,Community,2023-10-23,True
+BR009,Cabreraside East Branch,Cabreraside,WI,16984,(578)624-8963,Community,2018-02-23,True
+BR010,Samuelhaven Main Branch,Samuelhaven,NV,16361,531.250.9839,Corporate,2012-07-26,True
+BR011,East Carloston South Branch,East Carloston,VI,43810,983-547-3829,Wealth Management,2024-09-15,True
+BR012,Aguirreborough South Branch,Aguirreborough,CT,13205,+1-565-966-7010x65133,Retail,2013-09-29,True
+BR013,Whitemouth Main Branch,Whitemouth,IA,10381,581.808.0132x677,Wealth Management,2012-05-10,True
+BR014,South Aaron West Branch,South Aaron,MS,35261,246.787.2343x098,Wealth Management,2012-05-01,True
+BR015,New Thomashaven Central Branch,New Thomashaven,GA,07956,312.819.1361x93990,Digital Hub,2022-07-17,True
+BR016,Sarahborough East Branch,Sarahborough,TN,94373,334-562-4751x07991,Retail,2019-12-19,True
+BR017,Davidstad Central Branch,Davidstad,FM,09517,254.627.8498,Community,2022-08-24,True
+BR018,East Josephville South Branch,East Josephville,WA,73013,(944)693-5348,Community,2012-03-22,True
+BR019,Lake Rodneyview Main Branch,Lake Rodneyview,AZ,00965,724-427-8680x11280,Retail,2018-09-02,True
+BR020,North Kyle South Branch,North Kyle,MH,05730,(833)215-8692x322,Retail,2014-05-30,True

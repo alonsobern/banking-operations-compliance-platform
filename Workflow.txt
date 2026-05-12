@@ -1,0 +1,1 @@
+Synthetic Data → Python ETL → PostgreSQL → Power BI
