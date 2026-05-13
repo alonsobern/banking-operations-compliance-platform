@@ -11,19 +11,16 @@ DROP TABLE IF EXISTS customers CASCADE;
 DROP TABLE IF EXISTS branches CASCADE;
 
 -- 1. Branches Table
--- Stores physical and administrative branch information.
 CREATE TABLE branches (
     branch_id          VARCHAR(20) PRIMARY KEY,
-    branch_name        VARCHAR(100) NOT NULL,
-    branch_code        VARCHAR(20) UNIQUE NOT NULL,
-    address            VARCHAR(255),
+    branch_name        VARCHAR(150) NOT NULL,
     city               VARCHAR(100),
     state              VARCHAR(50),
     zip_code           VARCHAR(20),
-    country            VARCHAR(50) DEFAULT 'USA',
-    phone_number       VARCHAR(50),
-    manager_name       VARCHAR(100),
-    registration_date  DATE NOT NULL,
+    phone              VARCHAR(50),
+    branch_type        VARCHAR(50),
+    opened_date        DATE,
+    is_active          BOOLEAN DEFAULT TRUE,
     created_at         TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -92,7 +89,7 @@ CREATE TABLE transactions (
     account_status_at_tx   VARCHAR(50), -- Behavioral snapshot
     status                 VARCHAR(50) NOT NULL, -- Completed, Failed, Pending
     failure_reason         VARCHAR(255),
-    reference_number       VARCHAR(100) UNIQUE,
+    reference_number       VARCHAR(100),
     is_flagged             BOOLEAN DEFAULT FALSE,
     notes                  TEXT,
     created_at             TIMESTAMP DEFAULT CURRENT_TIMESTAMP

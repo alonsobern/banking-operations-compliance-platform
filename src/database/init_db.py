@@ -11,9 +11,9 @@ load_dotenv()
 
 DB_HOST = os.getenv("DB_HOST", "localhost")
 DB_PORT = os.getenv("DB_PORT", "5432")
-DB_NAME = os.getenv("DB_NAME", "banking_db")
+DB_NAME = os.getenv("DB_NAME", "banking-platform")
 DB_USER = os.getenv("DB_USER", "postgres")
-DB_PASS = os.getenv("DB_PASSWORD", "")
+DB_PASS = os.getenv("DB_PASSWORD", "root")
 
 def init_database():
     """Execute schema.sql against the target database."""
