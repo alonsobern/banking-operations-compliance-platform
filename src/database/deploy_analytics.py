@@ -15,15 +15,19 @@ def deploy_analytics():
         )
         cur = conn.cursor()
         
-        with open('sql/analytics_queries.sql', 'r') as f:
-            sql = f.read()
-            cur.execute(sql)
-            
-        conn.commit()
-        print("✅ Analytics views deployed successfully.")
+        sql_files = ['sql/analytics_queries.sql', 'sql/kpi_metrics.sql', 'sql/reporting_views.sql']
+        
+        for sql_file in sql_files:
+            if os.path.exists(sql_file):
+                print(f"Deploying {sql_file}...")
+                with open(sql_file, 'r') as f:
+                    cur.execute(f.read())
+                conn.commit()
+        
+        print("DONE: All analytical and reporting views deployed.")
         
     except Exception as e:
-        print(f"❌ Error: {e}")
+        print(f"ERROR: {e}")
     finally:
         if 'conn' in locals():
             cur.close()
