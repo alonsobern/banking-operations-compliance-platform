@@ -54,3 +54,17 @@ DETAIL:  Ya existe la llave (reference_number)=(REF-73227478).
 2026-05-13 12:57:56,768 - INFO - Successfully read compliance_flags.csv (51,892 rows)
 2026-05-13 12:58:01,360 - INFO - Successfully loaded 51,892 rows into table 'compliance_flags'
 2026-05-13 12:58:01,368 - INFO - Database connection closed.
+2026-05-14 11:14:48,257 - INFO - Starting ETL process...
+2026-05-14 11:14:48,333 - INFO - Successfully connected to PostgreSQL at localhost/banking-platform
+2026-05-14 11:14:48,339 - INFO - Clearing existing data (cascading)...
+2026-05-14 11:14:48,371 - INFO - Successfully read branches.csv (20 rows)
+2026-05-14 11:14:48,383 - INFO - Successfully loaded 20 rows into table 'branches'
+2026-05-14 11:14:48,398 - INFO - Successfully read customers.csv (2,000 rows)
+2026-05-14 11:14:48,559 - INFO - Successfully loaded 2,000 rows into table 'customers'
+2026-05-14 11:14:48,573 - INFO - Successfully read accounts.csv (3,000 rows)
+2026-05-14 11:14:48,785 - INFO - Successfully loaded 3,000 rows into table 'accounts'
+2026-05-14 11:14:49,157 - INFO - Successfully read transactions.csv (117,607 rows)
+2026-05-14 11:15:01,712 - INFO - Successfully loaded 117,607 rows into table 'transactions'
+2026-05-14 11:15:01,930 - INFO - Successfully read compliance_flags.csv (51,892 rows)
+2026-05-14 11:15:06,310 - INFO - Successfully loaded 51,892 rows into table 'compliance_flags'
+2026-05-14 11:15:06,324 - INFO - Database connection closed.
