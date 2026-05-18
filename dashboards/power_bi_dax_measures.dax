@@ -1,0 +1,148 @@
+/*
+================================================================================
+Power BI DAX Measures & Time Intelligence Library
+Banking Operations & Compliance Monitoring Platform
+================================================================================
+Best Practices Followed:
+1. Always reference measures WITHOUT the table name prefix (e.g., [Total Transactions]).
+2. Always reference columns WITH the table name prefix (e.g., transactions[amount]).
+3. Use DIVIDE() for all division operations to prevent divide-by-zero errors.
+4. Capitalize all DAX functions (CALCULATE, SUM, COUNT, DIVIDE, etc.).
+5. Provide standard time-intelligence measures using a marked Date Table ('Calendar').
+================================================================================
+*/
+
+-- ==========================================
+-- 1. BASE TRANSACTION MEASURES
+-- ==========================================
+
+-- [Total Transactions]
+-- Counts the total transaction events in the ledger.
+Total Transactions = COUNT(transactions[transaction_id])
+
+-- [Total Transaction Volume]
+-- Calculates the gross monetary throughput of the platform.
+Total Transaction Volume = SUM(transactions[amount])
+
+-- [Average Transaction Amount]
+-- Computes the average value per transaction.
+Average Transaction Amount = AVERAGE(transactions[amount])
+
+-- [Active Customers]
+-- Counts unique customers executing transactions.
+Active Customers = DISTINCTCOUNT(transactions[account_id])
+
+
+-- ==========================================
+-- 2. OPERATIONAL PERFORMANCE & SLA MEASURES
+-- ==========================================
+
+-- [Completed Transactions]
+-- Base helper measure for successful payments.
+Completed Transactions = 
+CALCULATE(
+    [Total Transactions],
+    transactions[status] = "Completed"
+)
+
+-- [Success Rate]
+-- Measures operational efficiency against service level SLAs.
+Success Rate = 
+DIVIDE(
+    [Completed Transactions],
+    [Total Transactions],
+    0
+)
+
+-- [Failed Transactions]
+-- Base helper measure for failed transactions.
+Failed Transactions = 
+CALCULATE(
+    [Total Transactions],
+    transactions[status] = "Failed"
+)
+
+-- [Failed Transaction Percentage]
+-- Calculates operational error ratios.
+Failed Transaction Percentage = 
+DIVIDE(
+    [Failed Transactions],
+    [Total Transactions],
+    0
+)
+
+
+-- ==========================================
+-- 3. RISK & COMPLIANCE MEASURES
+-- ==========================================
+
+-- [Total Compliance Alerts]
+-- Total count of flagged compliance incidents.
+Total Compliance Alerts = COUNT(compliance_flags[flag_id])
+
+-- [Suspicious Transaction Percentage]
+-- Measures the proportion of transactions flagged by compliance rules.
+Suspicious Transaction Percentage = 
+DIVIDE(
+    [Total Compliance Alerts],
+    [Total Transactions],
+    0
+)
+
+-- [Critical Compliance Alerts]
+-- Focuses on high-score risk alerts (>80 risk score).
+Critical Compliance Alerts = 
+CALCULATE(
+    [Total Compliance Alerts],
+    compliance_flags[risk_score] > 80
+)
+
+
+-- ==========================================
+-- 4. RANKING & DISCOVERY MEASURES
+-- ==========================================
+
+-- [Branch Activity Ranking]
+-- Ranks branches dynamically by volume, ignoring customer/date selection context if needed,
+-- but recalculating based on the active visual filter contexts.
+Branch Activity Ranking = 
+IF(
+    ISINSCOPE(branches[branch_name]),
+    RANKX(
+        ALLSELECTED(branches[branch_name]),
+        [Total Transaction Volume],
+        ,
+        DESC,
+        Dense
+    ),
+    BLANK()
+)
+
+
+-- ==========================================
+-- 5. TIME INTELLIGENCE & ALERT TRENDS
+-- ==========================================
+
+-- [Alert Count MoM Growth]
+-- Evaluates alert trends comparing the current month to the previous month.
+Alert Count MoM Growth = 
+VAR CurrentMonthAlerts = [Total Compliance Alerts]
+VAR PreviousMonthAlerts = 
+    CALCULATE(
+        [Total Compliance Alerts],
+        DATEADD('Calendar'[Date], -1, MONTH)
+    )
+RETURN
+    DIVIDE(
+        CurrentMonthAlerts - PreviousMonthAlerts,
+        PreviousMonthAlerts,
+        0
+    )
+
+-- [Transaction Volume YTD]
+-- Year-to-Date cumulative financial throughput.
+Transaction Volume YTD = 
+TOTALYTD(
+    [Total Transaction Volume],
+    'Calendar'[Date]
+)
