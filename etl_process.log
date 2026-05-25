@@ -68,3 +68,30 @@ DETAIL:  Ya existe la llave (reference_number)=(REF-73227478).
 2026-05-14 11:15:01,930 - INFO - Successfully read compliance_flags.csv (51,892 rows)
 2026-05-14 11:15:06,310 - INFO - Successfully loaded 51,892 rows into table 'compliance_flags'
 2026-05-14 11:15:06,324 - INFO - Database connection closed.
+2026-05-22 12:11:06,803 - INFO - Starting ETL process...
+2026-05-22 12:11:06,900 - INFO - Successfully connected to PostgreSQL at localhost/banking-platform
+2026-05-22 12:11:06,900 - INFO - Clearing existing data (cascading)...
+2026-05-22 12:11:06,949 - INFO - Successfully read branches.csv (20 rows)
+2026-05-22 12:11:06,965 - INFO - Successfully loaded 20 rows into table 'branches'
+2026-05-22 12:11:06,977 - INFO - Successfully read customers.csv (2,000 rows)
+2026-05-22 12:11:07,136 - INFO - Successfully loaded 2,000 rows into table 'customers'
+2026-05-22 12:11:07,144 - INFO - Successfully read accounts.csv (3,000 rows)
+2026-05-22 12:11:07,376 - INFO - Successfully loaded 3,000 rows into table 'accounts'
+2026-05-22 12:11:07,741 - INFO - Successfully read transactions.csv (117,607 rows)
+2026-05-22 12:11:14,486 - ERROR - Database error while loading table 'transactions': Can't reconnect until invalid transaction is rolled back.  Please rollback() fully before proceeding (Background on this error at: https://sqlalche.me/e/20/8s2b)
+2026-05-22 12:11:14,487 - CRITICAL - ETL process failed: Can't reconnect until invalid transaction is rolled back.  Please rollback() fully before proceeding (Background on this error at: https://sqlalche.me/e/20/8s2b)
+2026-05-22 12:11:14,487 - INFO - Database connection closed.
+2026-05-22 12:15:25,130 - INFO - Starting ETL process...
+2026-05-22 12:15:25,222 - INFO - Successfully connected to PostgreSQL at localhost/banking-platform
+2026-05-22 12:15:25,222 - INFO - Clearing existing data (cascading)...
+2026-05-22 12:15:25,265 - INFO - Successfully read branches.csv (20 rows)
+2026-05-22 12:15:25,282 - INFO - Successfully loaded 20 rows into table 'branches'
+2026-05-22 12:15:25,295 - INFO - Successfully read customers.csv (2,000 rows)
+2026-05-22 12:15:25,446 - INFO - Successfully loaded 2,000 rows into table 'customers'
+2026-05-22 12:15:25,454 - INFO - Successfully read accounts.csv (3,000 rows)
+2026-05-22 12:15:25,667 - INFO - Successfully loaded 3,000 rows into table 'accounts'
+2026-05-22 12:15:26,039 - INFO - Successfully read transactions.csv (117,607 rows)
+2026-05-22 12:15:37,882 - INFO - Successfully loaded 117,607 rows into table 'transactions'
+2026-05-22 12:15:38,058 - INFO - Successfully read compliance_flags.csv (51,892 rows)
+2026-05-22 12:15:42,452 - INFO - Successfully loaded 51,892 rows into table 'compliance_flags'
+2026-05-22 12:15:42,462 - INFO - Database connection closed.

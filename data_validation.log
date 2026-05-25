@@ -21,3 +21,49 @@
 2026-05-13 13:08:56,418 - INFO - Duration: 0.71 seconds
 2026-05-13 13:08:56,418 - INFO - Errors Found: 0
 2026-05-13 13:08:56,419 - INFO - Warnings Found: 1
+2026-05-22 12:09:05,876 - INFO - === Starting Data Validation Pipeline ===
+2026-05-22 12:09:05,884 - INFO - Loaded branches dataset: 20 rows.
+2026-05-22 12:09:05,897 - INFO - Loaded customers dataset: 2,000 rows.
+2026-05-22 12:09:05,907 - INFO - Loaded accounts dataset: 3,000 rows.
+2026-05-22 12:09:06,310 - INFO - Loaded transactions dataset: 117,607 rows.
+2026-05-22 12:09:06,498 - INFO - Loaded compliance_flags dataset: 51,892 rows.
+2026-05-22 12:09:06,499 - INFO - Checking for missing values...
+2026-05-22 12:09:06,527 - INFO - Checking for duplicate IDs...
+2026-05-22 12:09:06,529 - INFO - OK: Table 'customers' unique constraint verified.
+2026-05-22 12:09:06,530 - INFO - OK: Table 'accounts' unique constraint verified.
+2026-05-22 12:09:06,541 - INFO - OK: Table 'transactions' unique constraint verified.
+2026-05-22 12:09:06,541 - INFO - OK: Table 'branches' unique constraint verified.
+2026-05-22 12:09:06,546 - INFO - OK: Table 'compliance_flags' unique constraint verified.
+2026-05-22 12:09:06,547 - INFO - Checking referential integrity...
+2026-05-22 12:09:06,549 - INFO - OK: Accounts -> Customers FK integrity verified.
+2026-05-22 12:09:06,556 - INFO - OK: Transactions -> Accounts FK integrity verified.
+2026-05-22 12:09:06,556 - INFO - Validating business rules...
+2026-05-22 12:09:06,558 - INFO - RULE INFO: Found 872 high-value transactions (> $1M) for compliance review.
+2026-05-22 12:09:06,563 - WARNING - COMPLIANCE WARNING: 596 transactions occurred on 'Closed' accounts.
+2026-05-22 12:09:06,563 - INFO - === Validation Summary ===
+2026-05-22 12:09:06,563 - INFO - Duration: 0.69 seconds
+2026-05-22 12:09:06,563 - INFO - Errors Found: 0
+2026-05-22 12:09:06,563 - INFO - Warnings Found: 1
+2026-05-22 12:18:17,323 - INFO - === Starting Data Validation Pipeline ===
+2026-05-22 12:18:17,327 - INFO - Loaded branches dataset: 20 rows.
+2026-05-22 12:18:17,335 - INFO - Loaded customers dataset: 2,000 rows.
+2026-05-22 12:18:17,343 - INFO - Loaded accounts dataset: 3,000 rows.
+2026-05-22 12:18:17,721 - INFO - Loaded transactions dataset: 117,607 rows.
+2026-05-22 12:18:17,895 - INFO - Loaded compliance_flags dataset: 51,892 rows.
+2026-05-22 12:18:17,895 - INFO - Checking for missing values...
+2026-05-22 12:18:17,912 - INFO - Checking for duplicate IDs...
+2026-05-22 12:18:17,914 - INFO - OK: Table 'customers' unique constraint verified.
+2026-05-22 12:18:17,914 - INFO - OK: Table 'accounts' unique constraint verified.
+2026-05-22 12:18:17,925 - INFO - OK: Table 'transactions' unique constraint verified.
+2026-05-22 12:18:17,926 - INFO - OK: Table 'branches' unique constraint verified.
+2026-05-22 12:18:17,930 - INFO - OK: Table 'compliance_flags' unique constraint verified.
+2026-05-22 12:18:17,930 - INFO - Checking referential integrity...
+2026-05-22 12:18:17,931 - INFO - OK: Accounts -> Customers FK integrity verified.
+2026-05-22 12:18:17,937 - INFO - OK: Transactions -> Accounts FK integrity verified.
+2026-05-22 12:18:17,938 - INFO - Validating business rules...
+2026-05-22 12:18:17,939 - INFO - RULE INFO: Found 872 high-value transactions (> $1M) for compliance review.
+2026-05-22 12:18:17,943 - WARNING - COMPLIANCE WARNING: 596 transactions occurred on 'Closed' accounts.
+2026-05-22 12:18:17,944 - INFO - === Validation Summary ===
+2026-05-22 12:18:17,944 - INFO - Duration: 0.62 seconds
+2026-05-22 12:18:17,944 - INFO - Errors Found: 0
+2026-05-22 12:18:17,944 - INFO - Warnings Found: 1
