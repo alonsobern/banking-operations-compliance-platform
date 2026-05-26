@@ -4,5 +4,6 @@
     "success_rate_pct": 88.05,
     "failure_rate_pct": 7.67,
     "suspicious_rate_pct": 32.9334,
-    "avg_tx_amount": 34102.33
+    "avg_tx_amount": 34102.33,
+    "peak_hour": 19.0
 }

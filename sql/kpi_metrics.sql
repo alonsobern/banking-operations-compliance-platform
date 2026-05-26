@@ -44,6 +44,15 @@ WITH tx_stats AS (
 flag_stats AS (
     SELECT COUNT(DISTINCT transaction_id) AS flagged_tx
     FROM compliance_flags
+),
+peak_hour AS (
+    SELECT peak_hour
+    FROM (
+        SELECT DISTINCT(EXTRACT("HOUR" FROM transaction_time)) AS peak_hour, COUNT(transaction_id) AS total_transactions
+        FROM transactions
+        GROUP BY peak_hour
+        ORDER BY total_transactions DESC
+	LIMIT 1)
 )
 SELECT
     total_tx,
@@ -59,8 +68,9 @@ SELECT
           ELSE 0 END, 4)                                            AS suspicious_rate_pct,
     ROUND(CASE WHEN total_tx > 0
           THEN total_volume / total_tx
-          ELSE 0 END, 2)                                            AS avg_tx_amount
-FROM tx_stats, flag_stats;
+          ELSE 0 END, 2)                                            AS avg_tx_amount,
+    peak_hour
+FROM tx_stats, flag_stats, peak_hour;
 
 ---------------------------------------------------------
 -- 3. CUSTOMER RISK PROFILING
