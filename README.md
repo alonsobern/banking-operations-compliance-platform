@@ -8,6 +8,15 @@ An enterprise-grade, end-to-end relational data engineering, rule-based algorith
 
 ---
 
+## 📌 Executive Summary & Key Features
+- **Data Engineering Pipeline**: Synthetic generation, strict quality validation, and high-performance bulk ETL ingestion into PostgreSQL.
+- **Relational Integrity**: A robust Star Schema enforcing structural integrity via foreign keys, cascading deletes, and check constraints.
+- **Algorithmic Compliance Monitoring (AML)**: Automated detection engine scanning ledgers for structuring, velocity anomalies, and high-risk behavior to generate FinCEN-style audit flags.
+- **Automated KPI Extraction**: Python-driven analytics extracting top-level metrics (Success Rates, Volume, Suspicious Flag Ratios) to JSON for executive summaries.
+- **Executive Dashboarding**: Custom Power BI dashboard with dynamic DAX calculations for cross-filtering, heatmaps, and MoM trend analytics.
+
+---
+
 ## 🗺️ System Architecture
 
 The platform is designed around a decoupled, modern data stack that moves data from synthetic generation to high-performance operational dashboards:
@@ -19,9 +28,9 @@ flowchart TD
     C -->|Relational Truncation / UPSERT| D[(PostgreSQL OLAP Database)]
     D -->|Advanced Indexes & Triggers| E[Analytical Reporting Views]
     E -->|Continuous Rule Queries| F[Compliance Monitoring Engine]
-    E -->|Segment & Velocity Analytics| G[Business Insight Generator]
+    E -->|Segment & Velocity Analytics| G[KPI Extraction & Insights]
     F -->|Flagged Incidents| D
-    G -->|Markdown Reports| H[Executive Dashboard Narratives]
+    G -->|JSON/Markdown Reports| H[Executive Dashboard Narratives]
     E -->|DirectQuery / Import| I[Power BI Premium Dashboard]
 ```
 
@@ -48,7 +57,7 @@ erDiagram
 
 ---
 
-## ⚙️ Core Components
+## ⚙️ Core Components Deep-Dive
 
 ### 🛡️ 1. Data Quality & Pre-Load Validation Gate (`data_validator.py`)
 To prevent the ingestion of corrupted data into the operational tables, the validation pipeline operates as a **strict pre-load quality gate**:
@@ -74,11 +83,10 @@ Runs automated anti-money laundering (AML) and security audit rules over active 
 | **`RULE_004`** | **Sudden Dormancy Wakeup** | Transactions executed on accounts flagged as `Inactive`/`Frozen`. | `Medium` (Score 70) | Account takeover & identity theft |
 | **`RULE_005`** | **Failure Velocity Anomalies** | **5+ failed transactions** within a rolling **24-hour** window. | `Medium` (Score 60) | Fraud attempts or system timeouts |
 
-### 📈 4. Automated Business Insight Generator (`insight_generator.py`)
-Queries custom PostgreSQL analytical views to run statistical moving averages and anomaly checks, compiling executive briefings on:
-* **Throughput Fluctuations**: Real-time load indicators vs. historical 30-day baseline operations.
-* **Service Availability SLAs**: Transaction success rates and isolated primary technical error mode categories.
-* **AML Concentration Risk**: Analysis of compliance flags density segmented by user demographic tiers.
+### 📈 4. KPI Analytics & Business Insight Generator (`calculate_kpis.py` & `insight_generator.py`)
+- **SQL Analytics**: Utilizes `kpi_metrics.sql` and `analytics_queries.sql` to execute complex statistical window functions, aggregations, and performance SLA metrics on the PostgreSQL tables.
+- **KPI Extraction**: The `calculate_kpis.py` script computes peak transaction hours, failure rate percentages, and total processing volumes, saving output directly to `data/outputs/summary_kpis.json`.
+- **Insight Generation**: Compiles executive briefings on service availability, compliance risk concentrations, and throughput fluctuations based on the computed KPIs.
 
 ---
 
@@ -179,7 +187,7 @@ RETURN
 
 ---
 
-## 🚀 Quick Start Setup & Ingestion
+## 🚀 Quick Start Setup & Execution Guide
 
 Follow these steps to deploy the local PostgreSQL database, ingest the synthetic datasets, run the rule engines, and load the dashboard:
 
@@ -207,20 +215,15 @@ DB_USER=postgres
 DB_PASSWORD=your_secure_password
 ```
 
-### 3. Initialize Synthetic Data Engine
-Execute the modular generation scripts in order to generate over 117K+ rows of clean banking data:
+### 3. Generate & Validate Data
+Generate 117K+ rows of clean banking data and verify structural integrity before load:
 ```bash
 python src/generators/run_all.py
-```
-
-### 4. Run Pre-Load Ingestion Checks
-Execute the data validator to verify that primary keys, foreign keys, and values are integral:
-```bash
 python src/database/data_validator.py
 ```
 
-### 5. Initialize Schema & Execute Ingestion Pipeline
-Deploy structural SQL tables, primary constraints, and relational indexes, then run the SQLAlchemy ETL pipeline:
+### 4. Deploy Schema & Ingest Data
+Deploy the optimized PostgreSQL tables and execute the high-speed bulk ingestion pipeline:
 ```bash
 # Set up empty schemas and indexes in your local Postgres instance
 python src/database/init_db.py
@@ -229,21 +232,24 @@ python src/database/init_db.py
 python src/database/etl_pipeline.py
 ```
 
-### 6. Deploy Performance Analytical Views & Run Engines
-Deploy reporting views, execute the automated compliance scan rules, and compile the executive summary narratives:
+### 5. Run Analytics, Compliance & KPI Extraction
+Deploy reporting views, scan ledgers for AML violations, and extract top-level JSON KPIs:
 ```bash
-# Deploy Power BI-optimized SQL Views
+# 1. Deploy Power BI-optimized SQL Views
 python src/database/deploy_analytics.py
 
-# Run Compliance Detection Engine to process transactions and generate audit alerts
+# 2. Run Compliance Detection Engine to generate audit alerts
 python src/compliance/monitoring_engine.py
 
-# Generate automated executive dashboard insights markdown summaries
+# 3. Calculate metrics & Top-level KPIs
+python src/database/calculate_kpis.py
+
+# 4. Generate automated executive dashboard insights markdown summaries
 python src/reporting/insight_generator.py
 ```
 
-### 7. Launch Dashboards
-Open `Banking_Operations_Compliance_Dashboard.pbix` in **Power BI Desktop**, click **Refresh** on the Home tab, and explore the interactive compliance, operational, and risk insights.
+### 6. Launch Dashboards
+Open `Banking_Operations_Compliance_Dashboard.pbix` in **Power BI Desktop**, click **Refresh** on the Home tab to sync with PostgreSQL, and explore the interactive compliance, operational, and risk insights.
 
 ---
 
@@ -251,15 +257,16 @@ Open `Banking_Operations_Compliance_Dashboard.pbix` in **Power BI Desktop**, cli
 
 ```text
 ├── data/
-│   └── raw/                       # Generated CSV datasets
+│   ├── raw/                       # Generated CSV datasets
+│   └── outputs/                   # Extracted JSON KPI summaries
 ├── sql/
 │   ├── schema.sql                 # Primary PostgreSQL schemas & constraints
 │   ├── reporting_views.sql        # Power BI-optimized analytical views
-│   ├── kpi_metrics.sql            # Ad-hoc aggregation queries
-│   └── analytics_queries.sql      # Advanced database auditing queries
+│   ├── kpi_metrics.sql            # Aggregations for Executive KPIs
+│   └── analytics_queries.sql      # Advanced database auditing & metric queries
 ├── src/
 │   ├── generators/                # High-fidelity synthetic generation scripts
-│   ├── database/                  # ETL core, validators, and schema deployers
+│   ├── database/                  # ETL core, validators, and KPI calculators
 │   ├── compliance/                # Algorithmic AML & KYC Rule detection engines
 │   └── reporting/                 # Automated Executive Summaries exporter
 ├── dashboards/
